@@ -19,5 +19,6 @@ const upload = multer({
 
 router.post('/create',upload.single('imageURL'), menuController.create)
 router.get('/get', menuController.getAllData)
+router.delete('/delete/:menuId', menuController.deleteMenu)
 
 module.exports = router

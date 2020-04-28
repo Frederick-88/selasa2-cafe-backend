@@ -11,6 +11,7 @@ const mongoose = require ('mongoose')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const menuRouter = require("./routes/MenuRouter")
+const categoryRouter = require("./routes/CategoryRouter")
 
 var app = express();
 mongoodConnect = process.env.DB_CONNECTION
@@ -33,5 +34,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/menu', menuRouter);
+app.use('/category', categoryRouter);
 
 module.exports = app;

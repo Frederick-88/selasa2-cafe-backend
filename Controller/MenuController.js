@@ -1,4 +1,5 @@
 const MenuSchema = require('../models/Menu')
+const CategorySchema = require("../models/Category")
 
 module.exports = ({
     create: (req,res,next) => {
@@ -6,7 +7,9 @@ module.exports = ({
             name: req.body.name,
             detail: req.body.detail,
             price: req.body.price,
+            category: req.body.category,
             imageURL: req.file && req.file.path
+
         }).then(result => res.json({message:"Berhasil Create Data", result}))
         .catch(err=>{
             throw(err)
@@ -14,10 +17,22 @@ module.exports = ({
     },
 
     getAllData : (req,res,next) => {
-        MenuSchema.find({})
+        MenuSchema.find({}).populate('category')
         .then(result => res.json({message:"Berhasil Get Data", result}))
         .catch(err=>{
             throw(err)
         })
-    }
+    },
+
+    deleteMenu: function (req,res,next){
+
+        MenuSchema.findByIdAndRemove(req.params.menuId)
+        .then((result) =>{
+            res.json({ message:"Successfully Remove Data by ID."})
+        })
+        .catch(err => {
+            throw(err);
+            
+        })
+    },
 })

@@ -8,8 +8,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require ('mongoose')
 
+const jsonWT = require("jsonwebtoken")
+const privateKey = "admin";
+
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./routes/UserRouter');
 const menuRouter = require("./routes/MenuRouter")
 const categoryRouter = require("./routes/CategoryRouter")
 

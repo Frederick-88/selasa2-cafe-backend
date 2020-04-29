@@ -52,13 +52,13 @@ function validateUser (req,res,next) {
   })
 }
 
-function validatePassword (req,res) {
-  if (req.body.password !== req.body.confirmPassword) {
-    throw new Error('Confirm Password does not match Password');
-  } else {
-    req.body.password == req.body.confirmPassword
-    next()
-  }
-}
+// function validatePassword (req,res) {
+//   if (req.body.password !== req.body.confirmPassword) {
+//     throw new Error('Confirm Password does not match Password');
+//   } else {
+//     req.body.password == req.body.confirmPassword
+//     next()
+//   }
+// }
 
 module.exports = app;

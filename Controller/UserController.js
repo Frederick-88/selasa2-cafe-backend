@@ -6,17 +6,26 @@ const privateKey = "admin";
 
 module.exports = {
 
-    createData: (req,res)=>{
+    createData: (req,res,next)=>{
+      // function validatePassword (req,res) {
+       
+        
+      // }
         User.create({
             username: req.body.username,
             password: req.body.password,
-            ConfirmPassword: req.body.ConfirmPassword,
+            confirmPassword: req.body.confirmPassword,
             email: req.body.email,
             phone: req.body.phone,
         })
         .then((result)=>{
+          if (req.body.password !== req.body.confirmPassword) {
+            res.json('Confirm Password does not match Password');
+          } else {
+            req.body.password == req.body.confirmPassword
             res.json(result)
-        })
+        }})
+      
     },
 
       getData: function (req,res,next){

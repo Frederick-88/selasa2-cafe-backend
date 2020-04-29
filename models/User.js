@@ -13,6 +13,11 @@ const newUserSchema = new Schema ({
         type:String,
         required:true
     }),
+
+    confirmPassword: ({
+        type:String,
+        required:true
+    }),
     
     email: ({
         type:String,

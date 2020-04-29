@@ -17,6 +17,7 @@ const menuRouter = require("./routes/MenuRouter")
 const categoryRouter = require("./routes/CategoryRouter")
 
 var app = express();
+// MENJALANKAN DOTENV DI .ENV DENGAN NAMA DB_LOCAL
 mongoodConnect = process.env.DB_CONNECTION
 mongoose.connect(mongoodConnect, {
   useNewUrlParser: true,
@@ -36,7 +37,28 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/menu', menuRouter);
+// MASUKKAN VALIDATE KE MENU COK
+app.use('/menu',validateUser, menuRouter);
 app.use('/category', categoryRouter);
+
+function validateUser (req,res,next) {
+  jsonWT.verify(req.headers['x-access-token'], privateKey, (err,decoded)=>{
+    if (err){
+      res.json(err)
+    } else {
+      req.body.userId = decoded.id;
+      next()
+    }
+  })
+}
+
+function validatePassword (req,res) {
+  if (req.body.password !== req.body.confirmPassword) {
+    throw new Error('Confirm Password does not match Password');
+  } else {
+    req.body.password == req.body.confirmPassword
+    next()
+  }
+}
 
 module.exports = app;

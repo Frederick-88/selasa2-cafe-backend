@@ -2,12 +2,15 @@ const User = require("../models/User")
 const Bcrypt = require("bcrypt");
 const JsonWT = require("jsonwebtoken");
 const privateKey = "admin";
+// const { check, validationResult } = require('express-validator');
 
 module.exports = {
-    createData: (req,res,next)=>{
+
+    createData: (req,res)=>{
         User.create({
             username: req.body.username,
             password: req.body.password,
+            ConfirmPassword: req.body.ConfirmPassword,
             email: req.body.email,
             phone: req.body.phone,
         })
@@ -60,12 +63,12 @@ authenticated: function (req, res, next) {
           response != null &&
           Bcrypt.compareSync(req.body.password, response.password)
         ) {
-          jwt.sign(
+          JsonWT.sign(
             {
               id: response._id,
             },
             privateKey,
-            { expiresIn: "2 Days" },
+            { expiresIn: 60*60 },
             (err, token) => {
               res.json(token);
             }
